@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EFCore_Notes.Models
+{
+	internal class Note
+	{
+		public int NoteID { get; set; }
+		public string Title { get; set; }
+		public string Content { get; set; }
+		public DateTime CreatedAt { get; set; }
+		public DateTime? UpdatedAt { get; set; }
+		public int UserID { get; set; }
+
+		public virtual User User { get; set; }
+	}
+}

@@ -16,6 +16,10 @@ namespace EFCore_Notes.Models
 		public DateTime? UpdatedAt { get; set; }
 		public int UserID { get; set; }
 
+		[Required]
+		public int CategoryID { get; set; }
+
 		public virtual User User { get; set; }
+		public virtual Category Category { get; set; }
 	}
 }

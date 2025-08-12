@@ -1,6 +1,7 @@
 ﻿using EFCore_Notes.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace EFCore_Notes.Data
 
 			optionsBuilder.UseSqlServer(connectionString);
 
-			optionsBuilder.LogTo(_logStream.WriteLine);
+			optionsBuilder.LogTo(_logStream.WriteLine, LogLevel.Error);
 		}
 
 		public override void Dispose()

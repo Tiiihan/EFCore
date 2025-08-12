@@ -1,0 +1,5 @@
+﻿enum NoteStatus
+{ 
+	Draft,
+	Published
+}

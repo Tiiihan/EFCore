@@ -29,6 +29,12 @@ namespace EFCore_Notes.Data
 			optionsBuilder.LogTo(_logStream.WriteLine, LogLevel.Error);
 		}
 
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.ApplyConfiguration(new UserConfiguration());
+			modelBuilder.ApplyConfiguration(new NoteConfiguration());
+		}
+
 		public override void Dispose()
 		{
 			base.Dispose();

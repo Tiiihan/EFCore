@@ -13,7 +13,7 @@ namespace EFCore_Notes.Models
 		public int NoteID { get; set; }
 		public string Title { get; set; }
 		public string Content { get; set; }
-		public DateTime CreatedAt { get; set; }
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
 		public DateTime? UpdatedAt { get; set; }
 		public NoteStatus Status { get; set; }
 		public int UserID { get; set; }

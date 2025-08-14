@@ -33,6 +33,7 @@ namespace EFCore_Notes.Data
 		{
 			modelBuilder.ApplyConfiguration(new UserConfiguration());
 			modelBuilder.ApplyConfiguration(new NoteConfiguration());
+			modelBuilder.ApplyConfiguration(new CategoryConfiguration());
 		}
 
 		public override void Dispose()
@@ -43,5 +44,6 @@ namespace EFCore_Notes.Data
 
 		public DbSet<Note> Notes { get; set; }
 		public DbSet<User> Users { get; set; }
+		public DbSet<Category> Categories { get; set; }
 	}
 }

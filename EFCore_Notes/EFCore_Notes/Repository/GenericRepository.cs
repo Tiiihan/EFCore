@@ -14,7 +14,7 @@ namespace EFCore_Notes.Repository
 		private DbSet<T> table = null;
 
 		public GenericRepository()
-		{ 
+		{
 			this.context = new NotesContext();
 			table = context.Set<T>();
 		}
@@ -35,16 +35,17 @@ namespace EFCore_Notes.Repository
 		}
 
 		public void Update(T obj)
-		{ 
+		{
 			table.Attach(obj);
 			context.Entry(obj).State = EntityState.Modified;
 		}
 
 		public void Delete(object id)
-		{ 
+		{
 			T obj = table.Find(id);
 
-			table.Remove(obj);
+			if (obj != null)
+				table.Remove(obj);
 		}
 
 		public void Save() => context.SaveChanges();

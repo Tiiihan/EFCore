@@ -14,6 +14,5 @@ namespace EFCore_Notes.Repository
 		void Insert(T obj);
 		void Update(T obj);
 		void Delete(object id);
-		void Save();
 	}
 }

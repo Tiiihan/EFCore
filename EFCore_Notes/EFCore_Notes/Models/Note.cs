@@ -13,16 +13,10 @@ namespace EFCore_Notes.Models
 		public int NoteID { get; set; }
 		public string Title { get; set; }
 		public string Content { get; set; }
-
-		[Column(TypeName = "datetime2")]
 		public DateTime CreatedAt { get; set; }
 		public DateTime? UpdatedAt { get; set; }
-
-		[Column(TypeName = "varchar")]
 		public NoteStatus Status { get; set; }
 		public int UserID { get; set; }
-
-		[Required]
 		public int CategoryID { get; set; }
 
 		public virtual User User { get; set; }

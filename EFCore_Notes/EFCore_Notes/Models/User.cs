@@ -11,12 +11,7 @@ namespace EFCore_Notes.Models
 	internal class User
 	{
 		public int UserID { get; set; }
-		[Required]
 		public string UserName { get; set; }
-
-		[Required]
-		[MaxLength(100)]
-		[Column(TypeName = "nvarchar(100)")]
 		public string Email { get; set; }
 		public string Password { get; set; }
 

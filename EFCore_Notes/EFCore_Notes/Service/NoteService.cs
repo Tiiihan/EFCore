@@ -13,7 +13,6 @@ namespace EFCore_Notes.Service
 	{
 		private NotesContext _context = null;
 
-
 		public NoteService(NotesContext context)
 		{
 			_context = context;

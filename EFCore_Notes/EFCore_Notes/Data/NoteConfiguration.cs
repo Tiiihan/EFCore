@@ -17,6 +17,12 @@ namespace EFCore_Notes.Data
 				.HasConversion<string>()
 				.HasColumnType("varchar(15)")
 				.HasDefaultValue<NoteStatus>(NoteStatus.Draft);
+
+			builder.Property(n => n.CreatedAt)
+				.HasColumnType("datetime2");
+
+			builder.Property(n => n.CategoryID)
+				.IsRequired();
 		}
 	}
 }

@@ -11,11 +11,6 @@ namespace EFCore_Notes.Models
 	internal class Category
 	{
 		public int Id { get; set; }
-
-		[Required]
-		[MaxLength(50)]
-		[Column(TypeName = "nvarchar(50)")]
-
 		public string CategoryName { get; set; }
 		public virtual ICollection<Note>? Notes { get; set; }
 	}

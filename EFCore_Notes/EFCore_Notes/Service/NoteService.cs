@@ -1,6 +1,7 @@
 ﻿using EFCore_Notes.Data;
 using EFCore_Notes.Models;
 using EFCore_Notes.Repository;
+using EFCore_Notes.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace EFCore_Notes.Service
 {
-    internal class NoteService
+	internal class NoteService
 	{
 		private readonly UnitOfWork unitOfWork;
 
@@ -22,7 +23,7 @@ namespace EFCore_Notes.Service
 		}
 
 		public IEnumerable<Note> GetNotesWithCategory()
-		{ 
+		{
 			var notesWithCategory = unitOfWork.NoteRepository.GetAll().Include(x => x.Category).ToList();
 
 			return notesWithCategory;
@@ -30,17 +31,7 @@ namespace EFCore_Notes.Service
 
 		public IEnumerable<Note> GetNotesByKeyword()
 		{
-			bool isCorrect = false;
-			string keyword = "";
-
-			while (!isCorrect)
-			{
-				Console.Write("Enter keyword ");
-				keyword = Console.ReadLine();
-
-				if(!string.IsNullOrEmpty(keyword))
-					isCorrect = true;
-			}
+			string keyword = DataFromUser.GetKeyword();
 
 			var notes = unitOfWork.NoteRepository.GetAll().Where(x => x.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase)).ToList();
 			return notes;
@@ -55,33 +46,28 @@ namespace EFCore_Notes.Service
 								.ToList();
 		}
 
-		public Note GetDataForInsertNote(User user)
+		public Note CreateNote(User user, string[] noteInformation)
 		{
-			Console.Write("Enter Title: ");
-			string title = Console.ReadLine();
-
-			Console.Write("Enter content: ");
-			string content = Console.ReadLine();
-
-            Console.WriteLine("\nAvailable category: ");
-			var allCategories = unitOfWork.CategoryRepository.GetAll().ToList();
-
-			foreach(var categoryy in allCategories)
-                Console.WriteLine(categoryy.CategoryName + "\t");
+			string title = noteInformation[0];
+			string content = noteInformation[1];
+			string category = noteInformation[2];
 
 			Category categoryObj = null;
-			string category;
-
 			while (categoryObj == null)
 			{
-				Console.Write("Enter category name: ");
-				category = Console.ReadLine();
-
+				var allCategories = unitOfWork.CategoryRepository.GetAll().ToList();
 				categoryObj = allCategories.FirstOrDefault(c => c.CategoryName == category);
 
 				if (categoryObj == null)
+				{
 					Console.WriteLine("This category does not exist");
-			} 
+
+					PrintData.PrintAllCategories(allCategories);
+
+					Console.Write("Enter category name: ");
+					category = Console.ReadLine();
+				}
+			}
 
 			return new Note() { Title = title, Content = content, Category = categoryObj, UserID = user.UserID };
 		}

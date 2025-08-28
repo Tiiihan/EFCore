@@ -19,6 +19,15 @@ namespace EFCore_Notes.Service
 			this.unitOfWork = unitOfWork;
 		}
 
+		public User Regestration(string[] userInformation)
+		{
+			string userName = userInformation[0];
+			string userEmail = userInformation[1];
+			string userPassword = userInformation[2];
+
+			return new User() { UserName = userName, Email = userEmail, Password = userPassword };
+		}
+
 		public void EnterToAccount(string[] userNameAndPaasword)
 		{ 
 			string userName = userNameAndPaasword[0];

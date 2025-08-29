@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NotesWeb.Data;
+using NotesWeb.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,11 @@ builder.Services.AddDbContext<NotesContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection"));
 });
+
+// Configure Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+	.AddEntityFrameworkStores<NotesContext>()
+	.AddDefaultTokenProviders();
 
 var app = builder.Build();
 
@@ -31,6 +38,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Users}/{action=Index}/{id?}");
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

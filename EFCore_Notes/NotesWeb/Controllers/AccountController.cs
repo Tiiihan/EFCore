@@ -1,0 +1,53 @@
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using NotesWeb.Models;
+
+namespace NotesWeb.Controllers
+{
+	public class AccountController : Controller
+	{
+		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly SignInManager<ApplicationUser> _signInManager;
+
+		public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+		{
+			_userManager = userManager;
+			_signInManager = signInManager;
+		}
+
+		[HttpGet]
+		public IActionResult Register()
+		{ 
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Register(RegisterUser regUser)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = new ApplicationUser
+				{
+					UserName = regUser.Email,
+					FirstName = regUser.FirstName,
+					LastName = regUser.LastName,
+					Email = regUser.Email
+				};
+
+				var result = await _userManager.CreateAsync(user, regUser.Password);
+
+				if (result.Succeeded)
+				{
+					await _signInManager.SignInAsync(user, isPersistent: false);
+					return RedirectToAction("Index", "Home");
+				}
+				else
+				{ 
+					foreach(var error in result.Errors)
+						ModelState.AddModelError(string.Empty, error.Description);
+				}
+			}
+			return View(regUser);
+		}
+	}
+}

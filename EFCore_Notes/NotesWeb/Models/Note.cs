@@ -16,10 +16,9 @@ namespace NotesWeb.Models
 		public DateTime CreatedAt { get; set; } = DateTime.Now;
 		public DateTime? UpdatedAt { get; set; }
 		public NoteStatus Status { get; set; }
-		public int UserID { get; set; }
 		public int CategoryID { get; set; }
 
-		public virtual User User { get; set; }
+		public virtual ApplicationUser User { get; set; }
 		public virtual Category Category { get; set; }
 	}
 }

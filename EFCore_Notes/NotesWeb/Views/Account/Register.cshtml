@@ -1,0 +1,36 @@
+﻿@model RegisterUser;
+
+@{
+	Layout = "_AuthLayout";
+}
+
+<form asp-controller="Account" asp-action="Register" method="post" class="register-form">
+
+	<h1>Register</h1>
+
+	<div class="name-row">
+		<div class="register-div">
+			<input type="text" asp-for="FirstName" placeholder="FirstName" />
+		</div>
+		<div class="register-div">
+			<input type="text" asp-for="LastName" placeholder="LastName" />
+		</div>
+	</div>
+
+	<div class="register-div">
+		<input type="email" asp-for="Email" placeholder="Email" class="register-col" />
+	</div>
+
+	<div class="register-div">
+		<input type="password" asp-for="Password" placeholder="Password" class="register-col" />
+	</div>
+
+	<div class="register-btn-div">
+		<button type="submit" class="register-btn">REGISTER</button>
+	</div>
+</form>
+
+@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+{
+	<div class="text-danger">@error.ErrorMessage</div>
+}
